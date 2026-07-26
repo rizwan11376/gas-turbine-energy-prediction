@@ -1,5 +1,8 @@
 # 🔧 Gas Turbine Energy Yield Prediction
 
+🔗 **[Live Demo](https://gas-turbine-energy-prediction-dxcgnb2bcaukjfzfhmkkqb.streamlit.app/)**
+
+Machine-learning regression system that predicts a combined-cycle gas turbine's...
 Machine-learning regression system that predicts a combined-cycle gas turbine's hourly energy yield (MWh) from operational sensor readings. A tuned **HistGradientBoosting Regressor** is served through a **FastAPI** backend and an interactive **Streamlit** dashboard.
 
 ---
