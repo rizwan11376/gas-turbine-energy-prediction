@@ -1,4 +1,4 @@
-# 🔧 Gas Turbine Energy Yield Prediction
+# 🔧Project_02 Gas Turbine Energy Yield Prediction
 
 Machine-learning regression system that predicts a combined-cycle gas turbine's hourly energy yield (MWh) from operational sensor readings. A tuned **HistGradientBoosting Regressor** is served through a **FastAPI** backend and an interactive **Streamlit** dashboard.
 
