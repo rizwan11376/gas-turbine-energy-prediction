@@ -1,9 +1,8 @@
-# 🔧Project_02 Gas Turbine Energy Yield Prediction
+# 🔧 Gas Turbine Energy Yield Prediction
 
 🔗 **[Live Demo](https://gas-turbine-energy-prediction-dxcgnb2bcaukjfzfhmkkqb.streamlit.app/)**
 
-Machine-learning regression system that predicts a combined-cycle gas turbine's...
-Machine-learning regression system that predicts a combined-cycle gas turbine's hourly energy yield (MWh) from operational sensor readings. A tuned **HistGradientBoosting Regressor** is served through a **FastAPI** backend and an interactive **Streamlit** dashboard.
+Machine-learning regression system that predicts a combined-cycle gas turbine's hourly energy yield (MWh) from operational sensor readings. A tuned **Random Forest Regressor** is served through a **FastAPI** backend and an interactive **Streamlit** dashboard.
 
 ---
 
@@ -39,26 +38,26 @@ The defining methodological feature is **time-series (chronological) validation*
 
 ## Results (2015 Test Set)
 
-The tuned HistGradientBoosting model, evaluated **once** on the held-out 2015 data:
+The tuned Random Forest model, evaluated **once** on the held-out 2015 data:
 
 | Metric | Value |
 |---|---|
-| RMSE | **1.14 MWh** |
-| MAE | 0.87 MWh |
-| R² | **0.995** |
+| RMSE | **1.45 MWh** |
+| MAE | 1.00 MWh |
+| R² | **0.992** |
 
-Context: the target's standard deviation is 15.62 MWh, so an RMSE of 1.14 is under 1.5% of the operating range. The model explains 99.5% of the variance in energy yield — a genuinely deterministic (thermodynamic) process, predicted accurately on an unseen future year with no sign of drift.
+Context: the target's standard deviation is 15.62 MWh, so an RMSE of 1.45 is under 2% of the operating range. The model explains 99.2% of the variance in energy yield — a genuinely deterministic (thermodynamic) process, predicted accurately on an unseen future year.
 
 **Model comparison** (time-series cross-validated RMSE):
 
 | Model | RMSE (MWh) | R² |
 |---|---|---|
-| HistGradientBoosting (selected) | 1.20 | 0.992 |
-| Random Forest | 1.28 | 0.992 |
+| HistGradientBoosting | 1.20 | 0.992 |
+| Random Forest (selected) | 1.27 | 0.992 |
 | Ridge Regression | 1.70 | 0.978 |
 | Linear Regression | 1.72 | 0.977 |
 
-The tree ensembles outperformed the linear models because the turbine-inlet-temperature relationship with yield is **non-linear** — linear models rode on the near-linear compressor-pressure signal but could not capture the curved TIT relationship.
+The tree ensembles (Random Forest and gradient boosting) clearly outperformed the linear models because the turbine-inlet-temperature relationship with yield is **non-linear** — linear models rode on the near-linear compressor-pressure signal but could not capture the curved TIT relationship. Random Forest, a bagging ensemble that averages many independent decision trees, was selected for deployment.
 
 ## Known Limitation
 
@@ -68,10 +67,9 @@ The model slightly **under-predicts at peak energy yields above ~170 MWh**, wher
 
 ```
 User enters 8 sensor values in Streamlit
-            │
-    (Streamlit loads the model directly)
-            │
-add_engineered → HistGradientBoosting pipeline
+            │  (Streamlit loads the model directly)
+            ▼
+StandardScaler → Random Forest Regressor
             │
    Predicted energy yield (MWh) shown on a gauge
 ```
@@ -121,7 +119,7 @@ python -m streamlit run streamlit_app.py
 **FastAPI backend (optional, for API access):**
 ```bash
 python -m uvicorn api:app --reload
-# serves http://127.0.0.1:8000  (docs at /redoc)
+# serves http://127.0.0.1:8000
 ```
 
 ## API Reference
@@ -135,12 +133,12 @@ python -m uvicorn api:app --reload
 ```
 Response:
 ```json
-{ "predicted_tey_mwh": 135.03, "unit": "MWh" }
+{ "predicted_tey_mwh": 134.68, "unit": "MWh" }
 ```
 
 ## Tech Stack
 
-Python · scikit-learn · pandas · FastAPI · Streamlit · joblib
+Python · scikit-learn (Random Forest) · pandas · FastAPI · Streamlit · joblib
 
 ---
 
