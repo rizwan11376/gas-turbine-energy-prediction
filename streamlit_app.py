@@ -142,7 +142,7 @@ with st.sidebar:
         "<p style='font-size:0.8rem; color:#9fb3c8; margin-top:-8px;'>A project for AI/ML Training</p>",
         unsafe_allow_html=True,
     )
-    st.caption("⚠️ Demonstration only — not certified monitoring equipment.")
+    
 
 
 # --- Header --------------------------------------------------------------
