@@ -127,10 +127,10 @@ with st.sidebar:
     )
     st.divider()
     st.markdown("<p style='color:#4fd1c5; font-weight:700; margin-bottom:0;'>MODEL</p>"
-                "<p style='font-size:0.85rem; margin-top:2px;'>HistGradient Boosting Regressor</p>",
+                "<p style='font-size:0.85rem; margin-top:2px;'>Random Forest Regressor</p>",
                 unsafe_allow_html=True)
     st.markdown("<p style='color:#4fd1c5; font-weight:700; margin-bottom:0;'>ACCURACY (2015 test)</p>"
-                "<p style='font-size:0.85rem; margin-top:2px;'>R&sup2; 0.995 &nbsp;|&nbsp; RMSE 1.14 MWh</p>",
+                "<p style='font-size:0.85rem; margin-top:2px;'>R&sup2; 0.992 &nbsp;|&nbsp; RMSE 1.45 MWh</p>",
                 unsafe_allow_html=True)
     st.markdown("<p style='color:#4fd1c5; font-weight:700; margin-bottom:0;'>VALIDATION</p>"
                 "<p style='font-size:0.85rem; margin-top:2px;'>Time-series (chronological) on an unseen year</p>",
@@ -142,7 +142,7 @@ with st.sidebar:
         "<p style='font-size:0.8rem; color:#9fb3c8; margin-top:-8px;'>A project for AI/ML Training</p>",
         unsafe_allow_html=True,
     )
-    #st.caption("⚠️ Demonstration only — not certified monitoring equipment.")
+    st.caption("⚠️ Demonstration only — not certified monitoring equipment.")
 
 
 # --- Header --------------------------------------------------------------
@@ -192,9 +192,9 @@ st.divider()
 with st.expander("🔬 Model & Methodology Details"):
     st.markdown(
         """
-        **Algorithm:** HistGradient Boosting Regressor (scikit-learn) - a
-        gradient-boosted tree ensemble that builds many shallow decision trees
-        sequentially, each correcting the previous one's errors.
+        **Algorithm:** Random Forest Regressor (scikit-learn) - a bagging
+        ensemble that builds many independent decision trees on bootstrapped
+        samples and averages their predictions, reducing variance.
 
         **Why this model:** The relationship between turbine inlet temperature
         and energy yield is non-linear, so tree ensembles outperformed linear
@@ -213,11 +213,11 @@ with st.expander("🔬 Model & Methodology Details"):
         """
     )
     m1, m2, m3 = st.columns(3)
-    m1.metric("RMSE", "1.14 MWh")
-    m2.metric("MAE", "0.87 MWh")
-    m3.metric("R2 Score", "0.995")
+    m1.metric("RMSE", "1.45 MWh")
+    m2.metric("MAE", "1.00 MWh")
+    m3.metric("R2 Score", "0.992")
     st.caption(
-        "Target ranges 100-180 MWh, so a 1.14 MWh error is under 1.5% of the "
+        "Target ranges 100-180 MWh, so a 1.45 MWh error is under 2% of the "
         "operating range."
     )
 

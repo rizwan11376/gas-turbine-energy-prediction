@@ -1,4 +1,4 @@
-# 🔧 Gas Turbine Energy Yield Prediction
+# 🔧Project_02 Gas Turbine Energy Yield Prediction
 
 🔗 **[Live Demo](https://gas-turbine-energy-prediction-dxcgnb2bcaukjfzfhmkkqb.streamlit.app/)**
 
